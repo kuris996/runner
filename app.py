@@ -62,10 +62,9 @@ def process_watcher_finished(pw):
         value['check_count'] = 0
         if exitcode == 0:
             value['status'] = "finished"
-            process_watchers[pw.id] = value
         else:
             value['status'] = "error"
-            process_watchers[pw.id] = value
+        process_watchers[pw.id] = value
         process_watchers_running_count -= 1
         if process_watchers_running_count < 0:
             process_watchers_running_count = 0
