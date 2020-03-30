@@ -89,6 +89,8 @@ def start_next_main_process():
             "status" : "running", 
             "check_count": 0 
         }
+        restore_config_from_default()
+        set_config(pw.config)
         pw.start_watch()
         process_watchers_running_count += 1
         return
@@ -107,9 +109,8 @@ def run():
         id = data['ID']
         process_watchers_lock.acquire()
         if id not in process_watchers:
-            restore_config_from_default()
-            set_config(data['Config'])
             pw = create_main_process(id)
+            pw.config = data['Config']
             process_watchers[pw.id] = {
                 "pw": pw,
                 "startedAt": None, 
